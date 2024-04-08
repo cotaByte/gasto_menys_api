@@ -13,6 +13,12 @@ databases={
 }
 
 
+print(databases["gastomenys"].host)
+print(databases["gastomenys"].port)
+print(databases["gastomenys"].username)
+
+
+
 def connect():
     try:
         con = psycopg2.connect(
