@@ -2,34 +2,37 @@ import psycopg2
 
 
 databases={
-
-    "gastomenys":{
+    "GASTOMENYS":{
         "host":"localhost",
         "port":5432,
         "username":"rafa",
-        "password":"cG9zdGdyZXM="
-        
+        "password":"X18kdXBQM3JwNCRzX18=",
+        "database":"GastoMenys"
     }
 }
 
 
-print(databases["gastomenys"].host)
-print(databases["gastomenys"].port)
-print(databases["gastomenys"].username)
 
 
 
-def connect():
+def connect(bd:str):
+    
+    o_bd= databases[bd]
+    
+    if not o_bd: return {"ok":False,"msg":f"The database {bd} does not exist"}
+    
     try:
         con = psycopg2.connect(
-            host='localhost',
-            user='rafa',
-            password='X18kdXBQM3JwNCRzX18=',
-            database='GastoMenys'
+            host=o_bd["host"],
+            user=o_bd["username"],
+            password=o_bd["password"],
+            database=o_bd["database"]
         )
         print(con)
         return con
     except Exception as ex:
         print(ex)
         
+
+connect("GASTOMENYS")
         
