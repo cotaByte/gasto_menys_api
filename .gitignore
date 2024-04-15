@@ -1,0 +1,3 @@
+.vscode
+./api/__pycache__
+./api/utilities/__pycache__
