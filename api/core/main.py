@@ -19,7 +19,15 @@ def get_expenses(user_id:str,year:int,month:int):
     
 @app.post("/addExpense")
 def addExpense(request: Annotated[object,Body()]):
-    expense.set_expense()
+    print(request)
+    return expense.set_expense(
+        request.get("user_id"),
+        request.get("year"),
+        request.get("month"),
+        request.get("description"),
+        request.get("type"),
+        request.get("ammount"),
+    )
     
 @app.get("/expense/{expense_id}")
 def get_expense_detail(expense_id):
