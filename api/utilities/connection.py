@@ -1,5 +1,5 @@
 import psycopg2
-
+from psycopg2.extras import RealDictCursor
 
 # List of connections
 databases={
@@ -14,9 +14,7 @@ databases={
 
 
 def connect(bd:str):
-    
     o_bd= databases[bd]
-    
     if not o_bd: return {"ok":False,"msg":f"Unable to find database {bd}"}
     
     try:
@@ -31,3 +29,5 @@ def connect(bd:str):
         print(ex)
         return False
 
+def get_cursor(odb):
+      return odb.cursor(cursor_factory=RealDictCursor)

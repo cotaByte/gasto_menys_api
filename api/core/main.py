@@ -1,25 +1,30 @@
-from fastapi import Body,FastAPI
+from fastapi import Body,FastAPI,Path
 from typing import Annotated
+import sys
+sys.path.append('./entities')
+import user,expense
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return "root api"
-
-##region Auth
+# #region Auth
 @app.post("/login")
-async def login(request: Annotated[object,Body()]):
-    print(request)
-    #TODO => IMPLEMENT LOGIN
-    
+def login(request: Annotated[object,Body()]):
+    return user.login(request.get("user"),request.get("password"))    
 #End Auth region
 
-#  #region Expenses
-@app.get("/expenses/{user_id}/{month}")
-async def getExpenses(user_id:int,month:int):
-    if(user_id==1 and month==1): return {"Object":"Object"}
-    #TODO=> IMPLEMENT EXPENSES
+# #region Expenses
+@app.get("/expenses/{user_id}/{year}/{month}")
+def get_expenses(user_id:str,year:int,month:int):
+    return expense.get_expenses(user_id,year,month)
+    
+@app.post("/addExpense")
+def addExpense(request: Annotated[object,Body()]):
+    expense.set_expense()
+    
+@app.get("/expense/{expense_id}")
+def get_expense_detail(expense_id):
+    return expense.get_expense_detail(expense_id)
 
-#End Expenses region
-
+@app.delete("/deleteExpense/{expense_id}")
+def delete_expense(expense_id):
+    return expense.delete_expense(expense_id)
