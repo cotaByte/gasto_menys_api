@@ -17,7 +17,7 @@ def login(request: Annotated[object,Body()]):
 def get_expenses(user_id:str,year:int,month:int):
     return expense.get_expenses(user_id,year,month)
     
-@app.post("/addExpense")
+@app.post("/setExpense")
 def addExpense(request: Annotated[object,Body()]):
     print(request)
     return expense.set_expense(
@@ -27,6 +27,10 @@ def addExpense(request: Annotated[object,Body()]):
         request.get("description"),
         request.get("type"),
         request.get("ammount"),
+        request.get("expense_id"),
+        request.get("group_id"),
+        request.get("notes")
+        
     )
     
 @app.get("/expense/{expense_id}")

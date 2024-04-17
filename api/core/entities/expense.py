@@ -45,8 +45,9 @@ def set_expense(user_id:str,year:int,month:int,description:str, type:str, ammoun
             description='{description}',
             type='{type}',
             ammount={ammount},
-            group_id=coalesce('{group_id}'::uuid,null)::uuid,
+            group_id=coalesce('{group_id}',null),
             notes=coalesce('{notes}',null)
+            where id='{id}'
             '''
 
     with connection.connect("GASTOMENYS") as odb:
@@ -56,7 +57,7 @@ def set_expense(user_id:str,year:int,month:int,description:str, type:str, ammoun
             ret and odb.commit()
             
             msg= msg if ret else "Error trying to delete exepense"
-            return {"ok":ret,"msg":msg}
+            return {"ok":bool(ret),"msg":msg, "rowcount":ret}
     
 
 
