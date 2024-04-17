@@ -10,6 +10,16 @@ app = FastAPI()
 @app.post("/login")
 def login(request: Annotated[object,Body()]):
     return user.login(request.get("user"),request.get("password"))    
+
+@app.post("/createUser")
+def createUser(request: Annotated[object, Body()]):
+    return user.create(
+        request.get("username"),
+        request.get("password"),
+        request.get("name"),
+        request.get("surname"),
+        request.get("age"),
+        )
 #End Auth region
 
 # #region Expenses
@@ -19,7 +29,6 @@ def get_expenses(user_id:str,year:int,month:int):
     
 @app.post("/setExpense")
 def addExpense(request: Annotated[object,Body()]):
-    print(request)
     return expense.set_expense(
         request.get("user_id"),
         request.get("year"),
@@ -40,3 +49,4 @@ def get_expense_detail(expense_id):
 @app.delete("/deleteExpense/{expense_id}")
 def delete_expense(expense_id):
     return expense.delete_expense(expense_id)
+#End Expenses region
