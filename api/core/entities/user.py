@@ -21,7 +21,6 @@ def create(username:str,password:str,name:str,surname:str,age:int)->object:
             sql='''select * from users where username=%s'''
             con.execute(sql,[username])
             res=con.fetchone()
-            print(res)
             if(res): return {"ok":False,"msg":"This user already exists"}
             
             msg= "User created correctly"
@@ -35,3 +34,5 @@ def create(username:str,password:str,name:str,surname:str,age:int)->object:
                         
             msg= msg if ok else "Error creating the user"
             return {"ok":ok,"msg":msg}
+        
+        #rafa 5dd1a5a8-d8a4-4684-b09f-57ef0a878bb9
