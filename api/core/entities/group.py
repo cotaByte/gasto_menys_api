@@ -44,9 +44,9 @@ def delete_group(group_id):
         
 def set_group(user_id, name,id=""):
     msg="Group added correctly"
-    sql = f"insert into expenses_groups (name,user_id) values ('{name}', '{user_id}')"
+    sql = f"insert into expenses_groups (name,user_id) values (INITCAP('{name}'),'{user_id}')"
     if(id):
-        sql = f"update expenses_groups set name='{name}' where id='{id}'"
+        sql = f"update expenses_groups set name=INITCAP('{name}') where id='{id}'"
         msg="Group updated correctly"
        
     with connection.connect("GASTOMENYS") as odb:

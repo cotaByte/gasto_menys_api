@@ -61,5 +61,8 @@ def delete_group(group_id):
 
 @app.post("/setGroup")
 def set_group(request: Annotated[object, Body()]):
-    return group.set_group(request.get("user_id"),request.get("name"),request.get("id"))
+    return group.set_group(
+        request.get("user_id"),
+        request.get("name"),
+        request.get("id"))
 #End Expenses region
